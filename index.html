@@ -123,38 +123,94 @@
   resume    - View my resume summary<br>
   projects  - View my projects<br>
   skills    - See my technical skills<br>
+  experience - View my work experience<br>
+  education - View my educational background<br>
   contact   - Get my contact information<br>`,
 
       about: () => `Hi, I'm Futao Jia! 👋<br>
 I'm a data engineer passionate about building robust data pipelines and empowering teams with clean, accessible data.<br>
-Type 'resume' to see a summary of my background.`,
+I specialize in ETL processes, data validation, and business intelligence solutions.<br>
+Currently working at Attix APAC in Singapore.<br><br>
+Type 'resume' to see a summary of my background or 'skills' to see my technical expertise.`,
 
       resume: () => `📄 <strong>Futao Jia – Resume</strong><br>
-📍 Singapore | 📧 jasonj97422@gmail.com | 🔗 linkedin.com/in/futaojia<br><br>
-🧠 <strong>Skills:</strong><br>
-• Python, SQL, Shell | Airflow, PySpark, PowerBI, AWS, MongoDB<br><br>
+📍 Singapore | 📧 jasonj97422@gmail.com | 📱 +65 9890-1567 | 🔗 <a href="https://www.linkedin.com/in/futaojia" target="_blank">linkedin.com/in/futaojia</a><br><br>
+🧠 <strong>Skills:</strong> Python, SQL, Shell Scripting, Java, R, MySQL, MongoDB, PowerBI, Hive, PySpark, AWS<br><br>
 💼 <strong>Experience:</strong><br>
-• Attix APAC (2024–Now) – Airflow pipelines, data validation, BI dashboards<br>
-• Vipshop SG (2023–24) – Automated PySpark reporting, PowerBI, KPI tracking<br>
-• Xiaowei Tech (2020–21) – Report automation, SQL optimization<br><br>
+• Attix APAC (Sep 2024–Present) – Data Engineer<br>
+• Vipshop Singapore (May 2023–Mar 2024) – Data Analyst<br>
+• A*STAR (Feb 2023–May 2023) – Research Internship<br>
+• Shenzhen Cloud Technology (Aug 2021–Jul 2022) – Data Analyst<br>
+• Xiaowei Technology (Aug 2020–Aug 2021) – Data Engineer<br><br>
 🎓 <strong>Education:</strong><br>
-• MSc Data Science – National University of Singapore<br>
-• BSc CS – Purdue University<br><br>
-Type 'projects' to explore more.`,
+• MSc Data Science and Machine Learning – National University of Singapore (2022-2023)<br>
+• BSc Computer Science – Purdue University (2015-2019)<br><br>
+Type 'experience' for detailed work history or 'projects' to explore my portfolio.`,
 
-      projects: () => `Notable Projects:<br>
-• Marketing Dashboard – Built with Power BI & web data enrichment<br>
-• AWS Study Buddy – Flask app w/ SES auth for NUS students<br>
-• Credit Scorecard – ML scoring system using logistic regression<br><br>
-Type 'contact' to connect!`,
+      projects: () => `🚀 <strong>Projects:</strong><br><br>
+<strong>Marketing Analysis Dashboard</strong> (Nov 2023)<br>
+• Developed automated data pipelines in Power BI integrating multiple data sources<br>
+• Achieved high user engagement (2nd in organization open times)<br>
+• Created algorithms to calculate KPIs from raw logs<br>
+• Optimized dashboard design for stakeholder usability<br><br>
+<strong>English-Emoji Translation BERT Model</strong> (May 2023)<br>
+• Developed teacher-student framework for English-Emoji similarity measurement<br>
+• Led loss function modification and performance evaluation<br>
+• Tested various pre-trained BERT models for optimal selection<br><br>
+<strong>AWS Study Buddy Platform</strong> (Apr 2023)<br>
+• Created web platform connecting NUS students using Flask<br>
+• Designed database entities and developed backend APIs<br>
+• Implemented AWS SES for user email authentication<br><br>
+<strong>Credit Scorecard Model</strong> (Mar 2022)<br>
+• Built application scorecard model from data extraction to deployment<br>
+• Collaborated with domain experts for data preparation and modeling<br>
+• Implemented quarterly model updates with continuous testing<br>
+• Boosted rejection rate of potential defaults by over 100%<br>`,
 
-      skills: () => `Technical Skills:<br>
-• Languages: Python, SQL, Shell, Java<br>
-• Data Tools: Airflow, Spark, Hive, PowerBI<br>
-• Cloud: AWS (S3, Lambda, SES), Docker<br>
-• DBs: PostgreSQL, MySQL, MongoDB`,
+      skills: () => `🛠️ <strong>Technical Skills:</strong><br><br>
+<strong>Programming Languages:</strong> Python, SQL, Shell Scripting, Java, R<br><br>
+<strong>Data Tools & Technologies:</strong><br>
+• Databases: MySQL, MongoDB, Data Warehousing<br>
+• BI & Visualization: PowerBI, QuickSight<br>
+• Big Data: Hive, PySpark, Airflow<br>
+• Cloud: AWS (S3, Lambda, SES)<br>
+• ML/AI: TensorFlow, PyTorch<br>
+• Version Control: Git<br><br>
+<strong>Natural Languages:</strong><br>
+• Mandarin (Native)<br>
+• English (Working Professional)`,
 
-      contact: () => `📧 Email: jasonj97422@gmail.com<br>
+      experience: () => `💼 <strong>Professional Experience:</strong><br><br>
+<strong>Attix APAC</strong> | Data Engineer | Singapore (Sep 2024-Present)<br>
+• Architected Airflow-based ETL infrastructure for market data processing<br>
+• Developed data quality validation frameworks with anomaly detection<br>
+• Created automated pipelines for analytics and KPI monitoring<br>
+• Led knowledge sharing and mentoring initiatives<br><br>
+<strong>Vipshop Singapore</strong> | Data Analyst | Singapore (May 2023-Mar 2024)<br>
+• Led cross-departmental data-driven meetings<br>
+• Engineered automated PySpark reporting system, saving 6 hours weekly<br>
+• Built integrated data pipelines and PowerBI dashboards<br>
+• Enhanced analysis with external data via APIs and web scraping<br><br>
+<strong>A*STAR</strong> | Research Internship | Singapore (Feb 2023-May 2023)<br>
+• Analyzed 50+ academic papers on sustainable AI<br>
+• Contributed to research planning and reporting<br><br>
+<strong>Shenzhen Cloud Technology</strong> | Data Analyst | Guangdong, China (Aug 2021-Jul 2022)<br>
+• Implemented data pipeline for app streaming data using PySpark<br>
+• Developed and evaluated ML models (Logistic Regression, XGBoost, Random Forest)<br>
+• Improved team modeling processes with Python scripts<br><br>
+<strong>Xiaowei Technology</strong> | Data Engineer | Henan, China (Aug 2020-Aug 2021)<br>
+• Engineered diverse database solutions<br>
+• Automated reports with Python, saving 40 hours monthly<br>
+• Optimized SQL queries, increasing efficiency by 60%`,
+
+      education: () => `🎓 <strong>Education:</strong><br><br>
+<strong>National University of Singapore</strong> (Aug 2022-Aug 2023)<br>
+• Master of Science in Data Science and Machine Learning<br><br>
+<strong>Purdue University</strong> (Aug 2015-Dec 2019)<br>
+• Bachelor of Science in Computer Science`,
+
+      contact: () => `📱 Mobile: +65 9890-1567<br>
+📧 Email: jasonj97422@gmail.com<br>
 💼 LinkedIn: <a href="https://www.linkedin.com/in/futaojia" target="_blank">linkedin.com/in/futaojia</a><br>
 🐙 GitHub: <a href="https://github.com/FutaoJia97" target="_blank">github.com/FutaoJia97</a>`,
 
