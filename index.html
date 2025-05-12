@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Terminal | Futao Jia</title>
+  <style>
+    :root {
+      --terminal-bg: #1a1b1e;
+      --terminal-text: #98c379;
+      --terminal-prompt: #61afef;
+      --terminal-error: #e06c75;
+      --terminal-success: #98c379;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      padding: 20px;
+      background-color: var(--terminal-bg);
+      color: var(--terminal-text);
+      font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+      height: 100vh;
+      font-size: 14px;
+      line-height: 1.5;
+    }
+    #terminal { width: 100%; height: 100%; overflow-y: auto; padding: 10px; }
+    .prompt { color: var(--terminal-prompt); }
+    .error { color: var(--terminal-error); }
+    .success { color: var(--terminal-success); }
+    .cursor {
+      position: absolute;
+      width: 8px;
+      height: 15px;
+      background-color: var(--terminal-text);
+      animation: blink 1s step-end infinite;
+      z-index: 0;
+      pointer-events: none;
+    }
+    @keyframes blink { 50% { opacity: 0; } }
+    .line {
+      display: flex;
+      align-items: center;
+      position: relative;
+    }
+    #input {
+      background: transparent;
+      border: none;
+      color: var(--terminal-text);
+      font-family: inherit;
+      font-size: inherit;
+      outline: none;
+      flex-grow: 1;
+      caret-color: transparent;
+      margin-left: 8px;
+      position: relative;
+      z-index: 1;
+    }
+    .input-container {
+      position: relative;
+      display: flex;
+      flex-grow: 1;
+    }
+    .input-mirror {
+      visibility: hidden;
+      white-space: pre;
+      position: absolute;
+      left: 0;
+      top: 0;
+      pointer-events: none;
+      margin-left: 8px;
+    }
+    .ascii-art {
+      color: var(--terminal-success);
+      white-space: pre;
+      margin-bottom: 10px;
+    }
+    .command-output {
+      margin: 5px 0;
+      padding-left: 20px;
+    }
+    a {
+      color: var(--terminal-prompt);
+      text-decoration: none;
+    }
+    a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+  <div id="terminal">
+    <div class="ascii-art">
+        _       _           _____        _       
+       | |     (_)         |  __ \      | |      
+       | | ___  _ _ __ ___ | |  | | __ _| |_ ___ 
+   _   | |/ _ \| | '__/ _ \| |  | |/ _` | __/ _ \
+  | |__| | (_) | | | | (_) | |__| | (_| | ||  __/
+   \____/ \___/|_|_|  \___/|_____/ \__,_|\__\___/
+  
+          Data Engineer | Analytics Builder 
+  </div>
+  
+    <div class="command-output">Welcome to my interactive terminal! Type 'help' to see available commands.</div>
+    <div class="line">
+      <span class="prompt">guest@guest:~$</span>
+      <div class="input-container">
+        <span class="input-mirror"></span>
+        <input type="text" id="input" autofocus>
+        <span class="cursor"></span>
+      </div>
+    </div>
+  </div>
+  <script>
+    const terminal = document.getElementById('terminal');
+    const input = document.getElementById('input');
+    const commandHistory = [];
+    let historyIndex = -1;
+
+    terminal.addEventListener('click', () => input.focus());
+    input.addEventListener('blur', () => setTimeout(() => input.focus(), 10));
+
+    const commands = {
+      help: () => `Available commands:<br>
+  help      - Show this help message<br>
+  about     - Learn about me<br>
+  resume    - View my resume summary<br>
+  projects  - View my projects<br>
+  skills    - See my technical skills<br>
+  contact   - Get my contact information<br>`,
+
+      about: () => `Hi, I'm Futao Jia! 👋<br>
+I'm a data engineer passionate about building robust data pipelines and empowering teams with clean, accessible data.<br>
+Type 'resume' to see a summary of my background.`,
+
+      resume: () => `📄 <strong>Futao Jia – Resume</strong><br>
+📍 Singapore | 📧 jasonj97422@gmail.com | 🔗 linkedin.com/in/futaojia<br><br>
+🧠 <strong>Skills:</strong><br>
+• Python, SQL, Shell | Airflow, PySpark, PowerBI, AWS, MongoDB<br><br>
+💼 <strong>Experience:</strong><br>
+• Attix APAC (2024–Now) – Airflow pipelines, data validation, BI dashboards<br>
+• Vipshop SG (2023–24) – Automated PySpark reporting, PowerBI, KPI tracking<br>
+• Xiaowei Tech (2020–21) – Report automation, SQL optimization<br><br>
+🎓 <strong>Education:</strong><br>
+• MSc Data Science – National University of Singapore<br>
+• BSc CS – Purdue University<br><br>
+Type 'projects' to explore more.`,
+
+      projects: () => `Notable Projects:<br>
+• Marketing Dashboard – Built with Power BI & web data enrichment<br>
+• AWS Study Buddy – Flask app w/ SES auth for NUS students<br>
+• Credit Scorecard – ML scoring system using logistic regression<br><br>
+Type 'contact' to connect!`,
+
+      skills: () => `Technical Skills:<br>
+• Languages: Python, SQL, Shell, Java<br>
+• Data Tools: Airflow, Spark, Hive, PowerBI<br>
+• Cloud: AWS (S3, Lambda, SES), Docker<br>
+• DBs: PostgreSQL, MySQL, MongoDB`,
+
+      contact: () => `📧 Email: jasonj97422@gmail.com<br>
+💼 LinkedIn: <a href="https://www.linkedin.com/in/futaojia" target="_blank">linkedin.com/in/futaojia</a><br>
+🐙 GitHub: <a href="https://github.com/FutaoJia97" target="_blank">github.com/FutaoJia97</a>`,
+
+    };
+
+    function handleCommand(inputText) {
+      const [cmd, ...args] = inputText.trim().split(' ');
+      const command = cmd.toLowerCase();
+
+      if (!command) return '';
+
+      if (commands[command]) {
+        return commands[command](args.join(' '));
+      }
+
+      return `Command not found: ${command}. Type 'help' for available commands.`;
+    }
+
+    function attachInputListeners() {
+      input.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const command = input.value;
+          if (command.trim()) {
+            commandHistory.push(command);
+            historyIndex = commandHistory.length;
+          }
+
+          const outputLine = document.createElement('div');
+          outputLine.innerHTML = `<span class="prompt">guest@guest:~$</span> ${command}`;
+          terminal.insertBefore(outputLine, terminal.lastElementChild);
+
+          const response = handleCommand(command);
+          if (response) {
+            const responseLine = document.createElement('div');
+            responseLine.className = 'command-output';
+            responseLine.innerHTML = response.replace(/\n/g, '<br>');
+            terminal.insertBefore(responseLine, terminal.lastElementChild);
+          }
+
+          input.value = '';
+          window.scrollTo(0, document.body.scrollHeight);
+        }
+
+        if (e.key === 'ArrowUp') {
+          e.preventDefault();
+          if (historyIndex > 0) {
+            historyIndex--;
+            input.value = commandHistory[historyIndex];
+          }
+        }
+
+        if (e.key === 'ArrowDown') {
+          e.preventDefault();
+          if (historyIndex < commandHistory.length - 1) {
+            historyIndex++;
+            input.value = commandHistory[historyIndex];
+          } else {
+            historyIndex = commandHistory.length;
+            input.value = '';
+          }
+        }
+      });
+    }
+
+    attachInputListeners();
+
+    function updateCursorPosition() {
+      const inputText = input.value;
+      const mirror = document.querySelector('.input-mirror');
+      mirror.textContent = inputText;
+      const cursor = document.querySelector('.cursor');
+      cursor.style.left = `${mirror.offsetWidth + 8}px`;
+    }
+
+    input.addEventListener('input', updateCursorPosition);
+    input.addEventListener('keydown', () => setTimeout(updateCursorPosition, 0));
+  </script>
+</body>
+</html>
